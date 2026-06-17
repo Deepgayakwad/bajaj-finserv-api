@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -55,6 +56,17 @@ public class GlobalExceptionHandler {
         log.warn("Invalid input: {}", ex.getMessage());
         Map<String, Object> body = buildErrorBody(ex.getMessage(), null);
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(body);
+    }
+
+    /**
+     * Handles requests to non-existent static resources (e.g. GET /).
+     * Returns 404 quietly without ERROR log spam.
+     */
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleNoResourceFound(NoResourceFoundException ex) {
+        log.debug("No resource found: {}", ex.getMessage());
+        Map<String, Object> body = buildErrorBody("Resource not found. Use POST /bfhl", null);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 
     /**

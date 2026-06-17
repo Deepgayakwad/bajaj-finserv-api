@@ -10,6 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 /**
  * REST Controller exposing the POST /bfhl endpoint.
  *
@@ -29,6 +32,20 @@ public class BfhlController {
 
     public BfhlController(BfhlService bfhlService) {
         this.bfhlService = bfhlService;
+    }
+
+    /**
+     * GET /bfhl — Health check / API info.
+     * Shown when visiting the URL in a browser.
+     */
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, Object>> healthCheck() {
+        Map<String, Object> info = new LinkedHashMap<>();
+        info.put("status", "UP");
+        info.put("service", "bfhl-api");
+        info.put("endpoint", "POST /bfhl");
+        info.put("description", "Send POST request with JSON body: {\"data\": [...]}");
+        return ResponseEntity.ok(info);
     }
 
     /**
