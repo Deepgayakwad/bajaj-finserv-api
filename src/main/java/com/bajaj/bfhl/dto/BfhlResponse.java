@@ -1,5 +1,6 @@
 package com.bajaj.bfhl.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -108,6 +109,7 @@ public class BfhlResponse {
     }
 
     // ---- Getters & Setters ----
+    @JsonIgnore
     public boolean isSuccess() { return isSuccess; }
     public void setSuccess(boolean success) { isSuccess = success; }
 
