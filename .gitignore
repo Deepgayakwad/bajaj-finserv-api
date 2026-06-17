@@ -1,0 +1,26 @@
+# Maven
+target/
+*.jar
+*.war
+*.class
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.DS_Store
+*.swp
+
+# Logs
+logs/
+*.log
+
+# Environment
+.env
+*.env
+
+# Spring Boot
+spring-shell.log
